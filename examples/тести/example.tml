@@ -1,0 +1,120 @@
+# ============================================================
+# ГЛОБАЛЬНІ ЗМІННІ
+# ============================================================
+
+# Лічильник часу (у секундах), оновлюється через tick.delta
+let timer = 0
+
+# Лічильник кліків
+let click_count = 0
+
+# Максимальна кількість кліків перед автоматичним завершенням
+let max_clicks = 10
+
+# Прапорець аварійної зупинки (керується хоткеєм)
+let emergency = false
+
+
+# ============================================================
+# NEW FEATURES TEST: Loops and Lists
+# ============================================================
+
+let coordinates = [[100, 100], [200, 200], [300, 300]]
+
+func test_loops():
+    print("Testing for loop with list:")
+    for point in coordinates:
+        print("Moving to:")
+        print(point)
+        mouse.move(point[0], point[1])
+    
+    let i = 0
+    print("Testing while loop:")
+    while i < 3:
+        print("Iteration:")
+        print(i)
+        set i = i + 1
+
+# Call test on init
+func on_init():
+    test_loops()
+    print("Macro initialized")
+
+
+# ============================================================
+# ОСНОВНА ФУНКЦІЯ ТІК-СИСТЕМИ
+# Викликається періодично, доки macro.active == true
+# ============================================================
+let count = 0
+# 2. Кешування доступів
+# Зберігаємо об'єкти у локальні змінні для швидшого доступу
+let m = mouse
+let k = key
+
+func on_tick():
+    let very_local_var = "DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD"
+    # Використовуємо локальний кеш 'm' замість глобального 'mouse'
+    set count = count + 1 
+    print(count) 
+    if count == 200:
+        sleep(10)
+        print("Auto-exit at 20 ticks")
+        exit()
+    # Якщо макрос деактивований — нічого не робимо
+    if not macro.active:
+        return
+
+    # Акумулюємо час між тіками
+    set timer = timer + tick.delta
+
+    # Перевіряємо, чи настав час виконувати дію
+    if timer >= 0.5:
+
+        # Перевірка позиції миші через кешований об'єкт
+        if m.x < 500:
+            m.move(500, m.y)
+        elif m.x > 1500:
+            m.move(1500, m.y)
+        else:
+            m.click(left)
+
+        # Збільшуємо лічильник кліків
+        set click_count = click_count + 1
+
+        # Скидаємо таймер
+        set timer = 0
+
+        # Якщо досягли ліміту — коректно завершуємо макрос
+        if click_count >= max_clicks:
+            print(timer)
+
+
+# ============================================================
+# КОРИСТУВАЦЬКА ДОПОМІЖНА ФУНКЦІЯ
+# Може викликатися з if / hotkey / іншої логіки
+# ============================================================
+
+func status_report():
+    # Виводимо поточний стан у текстове поле
+    key.type("Clicks: ")
+    key.type(click_count)
+    key.type(" | Active: ")
+    key.type(macro.active)
+    key.press(ENTER)
+
+func on_exit():
+    key.type("Macro stopped")
+    key.press(K_ENTER)
+    set timer = 0
+    set count = 0
+
+func on_hotkey(key_obj):
+    if key_obj == K_F6:
+        set macro.active = not macro.active
+        print("Macro toggled via F6")
+    elif key_obj == K_F7:
+        set emergency = true
+        print("Emergency stop triggered via F7!")
+        stop()
+    elif key_obj == K_A:
+        print("Key A pressed (layout independent!)")

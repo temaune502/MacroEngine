@@ -1,0 +1,6 @@
+let count = 0
+func on_tick():
+    while true:
+        set count = count + 1
+        print(count)
+

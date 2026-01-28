@@ -1,0 +1,15 @@
+func on_init():
+    ui.show()
+    ui.anchor("top_center")
+    
+    # 1. Встановлюємо шаблони з позиційними індексами {0}, {1}...
+    ui.set_template("stats", "HP: {0} | MP: {1} | Рівень: {2}")
+    ui.set_template("pos", "Координати: X={0}, Y={1}")
+    
+    ui.set_color("stats", "#ffaa00")
+    ui.set_color("pos", "#00aaff")
+
+func on_tick(delta):
+    # 2. Оновлюємо значення. Вони підставляться за порядком.
+    ui.set_text("stats", 100, 50, 7)
+    ui.set_text("pos", int(mouse.x), int(mouse.y))

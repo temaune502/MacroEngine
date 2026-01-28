@@ -1,0 +1,60 @@
+# Макрос демонстрації всіх нових можливостей TML
+# 1. Аргументи за замовчуванням та **kwargs
+# 2. Словники
+# 3. Інкремент/декримент та комбіноване присвоєння
+# 4. break та continue
+
+func process_item(name, count=1, **options):
+    # Створення словника (нова фішка)
+    let item = {
+        "name": name,
+        "count": count,
+        "active": true
+    }
+    
+    # Використання kwargs (нова фішка)
+    if options["urgent"]:
+        ui.set_text("status", "Термінова обробка: ", name)
+    
+    return item
+
+func on_init():
+    on_s1()
+
+
+func on_s1():
+    ui.show()
+    ui.set_text("info", "Запуск тесту нових фіч...")
+    
+    # Виклик з іменованими аргументами (нова фішка)
+    let my_item = process_item("Залізо", count=5, urgent=true)
+    
+    let counter = 0
+    let inventory = []
+    
+    # Цикл з break та continue (нові фішки)
+    while counter < 10:
+        # Інкремент (нова фішка)
+        set counter++
+        
+        if counter == 3:
+            ui.set_text("log", "Пропускаємо 3 (continue)")
+            continue
+            
+        if counter == 7:
+            ui.set_text("log", "Зупиняємось на 7 (break)")
+            break
+            
+        # Додавання до списку
+        inventory.append(counter)
+        
+        # Комбіноване присвоєння (нова фішка)
+        # Припустимо, ми додаємо вагу
+        let total_weight = 0
+        set total_weight += counter * 1.5
+        
+        ui.set_text("progress", "Обробка кроку: ", counter)
+        ui.set_text("weight", "Поточна вага: ", total_weight)
+        
+    ui.set_text("res", "Фінальний інвентар: ", inventory)
+    ui.set_text("item_info", "Створений об'єкт: ", my_item["name"], " (", my_item["count"], ")")

@@ -1,0 +1,20 @@
+
+let is_running = true
+
+# on_init - викликається один раз при запуску макросу
+func on_init():
+    print("Макрос запущено!")
+
+let count = 0 
+func t():
+    while true:
+            set count = count + 1 
+            print(count)
+            yield
+
+func on_tick(delta):
+    if is_running:
+        t()
+
+func on_exit():
+    print("Макрос зупинено. Очищення ресурсів...")

@@ -1,0 +1,25 @@
+func test_features(a, b=10, **extra):
+    # 1. Словники та інкремент
+    let data = {"val": a, "bonus": b}
+    set data["val"]++
+    set data["val"] += 5
+    
+    # 2. Break та Continue
+    let i = 0
+    while i < 10:
+        set i++
+        if i == 5:
+            continue
+        if i == 8:
+            break
+        ui.set_text("loop", "Цикл: ", i)
+    
+    # 3. Kwargs
+    ui.set_text("extra", "Додатково: ", extra)
+    return data
+
+func on_init(delta):
+    ui.show()
+    # Виклик з позиційними та ключовими аргументами
+    let result = test_features(100, x=1, y=2)
+    ui.set_text("res", "Результат: ", result)

@@ -1,0 +1,17 @@
+func on_init():
+    let game = win.get_by_title("MyGame")
+    if game:
+        game.activate()
+        sleep(1.0)
+        
+        mouse.move(game.x + game.width / 2, game.y + game.height / 2)
+        mouse.click(left)
+        
+        key.tap(K_ENTER)
+        system.set_clipboard("MySecretPassword123")
+        key.press(K_CTRL)
+        key.tap(K_V)
+        key.release(K_CTRL)
+        key.tap(K_ENTER)
+        
+        sound.play("success.wav")

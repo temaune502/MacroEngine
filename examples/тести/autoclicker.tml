@@ -1,0 +1,21 @@
+# Авто-клікер на TML
+# Клавіша F1 для увімкнення/вимкнення
+
+let actives = false
+
+func on_hotkey(key_obj):
+    if key_obj == K_F1:
+        set actives = not actives
+        if actives:
+            print("Авто-клікер: УВІМКНЕНО")
+        else:
+            print("Авто-клікер: ВИМКНЕНО")
+
+func on_tick(delta):
+    if actives:
+        mouse.click(left)
+        sleep(0.05) # Швидкість кліків (0.05 сек)
+
+func on_exit():
+
+    print("Program end")

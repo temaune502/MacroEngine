@@ -1,0 +1,8 @@
+[2026-01-06 13:00:08.631] [afk_anti_kick.tml] global win: None -> <stdlib.WindowWrapper object at 0x000001D32E50E350>
+[2026-01-06 13:00:08.631] [afk_anti_kick.tml] global sound: None -> <stdlib.SoundWrapper object at 0x000001D32E50E850>
+[2026-01-06 13:00:08.631] [afk_anti_kick.tml] global storage: None -> <stdlib.StorageWrapper object at 0x000001D32E50E990>
+[2026-01-06 13:00:10.119] [afk_anti_kick.tml] local on_tick.delta: None -> 0.01091790001373738
+[2026-01-06 13:00:10.119] [afk_anti_kick.tml] local on_tick.timer: None -> 30.001747600006638
+[2026-01-06 13:00:25.713] [afk_anti_kick.tml] global win: None -> <stdlib.WindowWrapper object at 0x000001D32E4D6EA0>
+[2026-01-06 13:00:25.713] [afk_anti_kick.tml] global sound: None -> <stdlib.SoundWrapper object at 0x000001D32E4D7360>
+[2026-01-06 13:00:25.713] [afk_anti_kick.tml] global storage: None -> <stdlib.StorageWrapper object at 0x000001D32E4D7490>

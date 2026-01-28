@@ -1,0 +1,18 @@
+func on_init():
+    ui.show()
+    ui.anchor("left")
+    ui.move(17, 625)
+    ui.set_scale(1.2)1
+    ui.set_bg_opacity(200)
+    ui.set_text("info", "Тест нових функцій")
+    ui.set_color("info", "#00ff00") # Зелений
+
+func on_tick(delta):
+    # Спрощене форматування тексту з кількома аргументами
+    ui.set_text("pos", "Миша: ", int(mouse.x), ", ", int(mouse.y))
+    ui.move(mouse.x, mouse.y)
+    # Зміна кольору залежно від позиції
+    if mouse.x > 500:
+        ui.set_color("pos", "#ff5555") # Червонуватий
+    else:
+        ui.set_color("pos", "#55ff55") # Зеленкуватий

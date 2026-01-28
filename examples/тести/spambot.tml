@@ -1,0 +1,18 @@
+# Спам-бот
+# Натисніть F2, щоб автоматично надрукувати серію повідомлень
+
+let phrase = "Привіт, це автоматичне повідомлення від TML!"
+let count = 5
+
+func on_hotkey(name):
+    if name == K_F2:
+        print("Запуск спам-бота...")
+        let i = 0
+        while i < count:
+            let num = i + 1
+            key.type(phrase + " номер " + str(int(num)))
+            key.tap(K_ENTER)
+            sleep(0.5) # Пауза між повідомленнями
+            set i = i + 1
+        print("Готово!")
+

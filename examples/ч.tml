@@ -1,0 +1,9 @@
+@meta { no_limit: true, fps: 1444, init: "on_init", no_tick: false}
+
+let count = 0
+
+
+func on_init():
+    while true:
+        set count = count + 1
+        print(count)

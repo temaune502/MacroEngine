@@ -1,0 +1,54 @@
+let is_running = true
+let state = "attacking" # attacking, waiting, feeding
+let timer = 0
+let attack_count = 0
+let auto_feed_count = 0
+
+let sword_slot = K_1
+let food_slot = K_2
+
+func on_tick(delta):
+    if not is_running:
+        return
+
+    set timer = timer + delta
+
+    # Стан атаки
+    if state == "attacking":
+        if timer >= 1.6:
+            key.tap(sword_slot)
+            mouse.click(left)
+            set attack_count = attack_count + 1
+            set timer = 0
+            
+            if attack_count >= 5:
+                set state = "waiting"
+                set attack_count = 0
+
+    # Стан очікування після серії атак
+    if state == "waiting":
+        if timer >= 5.0:
+            set auto_feed_count = auto_feed_count + 1
+            set timer = 0
+            
+            if auto_feed_count >= 30:
+                set state = "feeding"
+                key.press(food_slot)
+            else:
+                set state = "attacking"
+
+    # Стан годування
+    if state == "feeding":
+        if timer >= 10.0:
+            key.release(food_slot)
+            set auto_feed_count = 0
+            set timer = 0
+            set state = "attacking"
+
+func on_hotkey(hotkey_name):
+    if hotkey_name == K_F7:
+        set is_running = not is_running
+        if not is_running:
+            # Скидаємо стани при зупинці для безпеки
+            key.release(food_slot)
+        print("Статус макросу: " + str(is_running))

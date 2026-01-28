@@ -1,0 +1,33 @@
+@meta{fps: 14334,}
+
+let count = 0
+let is_active = true
+
+func on_init():
+    ui.move(20, 580)
+    ui.set_font_size("status", 18)  # Великий шрифт для статусу
+    ui.set_font_size("clicks", 14)  # Середній для кліків
+    ui.set_font_size("pos", 10)     # Маленький для координат
+    ui.show()
+    ui.set_text("status", "Статус: Очікування")
+    ui.set_text("pos", "Позиція: x=20, y=680")
+
+func on_tick(delta):
+    if is_active:
+
+        let msg = "Позиція: x:" + str(mouse.x) + " y:" +str(mouse.y)
+        ui.set_text("pos", msg)
+        #""ui.move(mouse.x, mouse.y)
+        # ваша логіка...
+
+func on_hotkey(key):
+    if key == K_F7:
+        set is_active = not is_active
+        if is_active:
+            ui.set_text("status", "Статус: ПРАЦЮЄ")
+        else:
+            ui.set_text("status", "Статус: ПАУЗА")
+
+func on_exit():
+    print("msg")
+    ui.hide()

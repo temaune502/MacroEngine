@@ -1,0 +1,56 @@
+@meta {}
+let is_running = true
+let count = 0
+let auto_feed_count = 0
+
+let sword_slot = K_1
+let food_slot = K_3
+
+func on_init():
+    print("Макрос запущено!")
+    ui.move(20, 500)
+    ui.set_font_size("title", 18)
+    ui.set_font_size("info", 14)
+    ui.show()
+    ui.set_text("title", "MINECRAFT AUTO-FARM")
+    ui.set_text("info", "Статус: ПРАЦЮЄ")
+    ui.set_text("stats", "Ударів:1 0/5 | Годування: 0/30")
+
+func on_tick(delta):
+    if is_running:
+        ui.set_text("info", "Статус: АТАКА")
+        while count != 5:
+            key.tap(sword_slot)
+            mouse.click(left)
+            set count = count + 1
+            ui.set_text("stats", "Ударів: " + str(count) + "/5 | Годування: " + str(auto_feed_count) + "/30")
+            sleep(1.6)
+        
+        set count = 0
+        set auto_feed_count = auto_feed_count + 1
+        ui.set_text("info", "Статус: ПЕРЕРВА")
+        ui.set_text("stats", "Ударів: 0/5 | Годування: " + str(auto_feed_count) + "/30")
+        sleep(5)
+        
+        if auto_feed_count == 30:
+            ui.set_text("info", "Статус: ГОДУВАННЯ")
+            key.tap(food_slot)
+            mouse.press(right)
+            sleep(10)
+            mouse.release(right)
+            set auto_feed_count = 0
+            ui.set_text("stats", "Ударів: 0/5 | Годування: 0/30")
+
+func on_hotkey(hotkey_name):
+    if hotkey_name == K_F7:
+        set is_running = not is_running
+        if is_running:
+            ui.set_text("info", "Статус: ПРАЦЮЄ")
+        else:
+            ui.set_text("info", "Статус: ПАУЗА")
+
+
+# on_exit - викликається перед завершенням роботи макросу
+func on_exit():
+    print("Макрос зупинено. Очищення ресурсів...")
+    ui.hide()

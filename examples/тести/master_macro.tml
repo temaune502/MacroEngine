@@ -1,0 +1,28 @@
+# Master Macro Example
+# This macro controls other macros via hotkeys
+
+func on_init():
+    print("Master Macro Loaded!")
+    print("Press F4 to start Autoclicker")
+    print("Press F5 to stop Autoclicker")
+
+func on_hotkey(key):
+    if key == K_F4:
+        if not macro.is_running("autoclicker.tml"):
+            print("Starting Autoclicker...")
+            macro.run("autoclicker.tml")
+        else:
+            print("Autoclicker is already running.")
+            
+    elif key == K_F5:
+        if macro.is_running("autoclicker.tml"):
+            print("Stopping Autoclicker...")
+            macro.stop("autoclicker.tml")
+        else:
+            print("Autoclicker is not running.")
+let local = None
+func on_tick(delta):
+    set local = delta
+
+func on_exit():
+    print("Master Macro stopped.")

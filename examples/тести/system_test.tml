@@ -1,0 +1,38 @@
+# Тест нових можливостей TML
+# Яскравість, Гучність, Монітор
+
+func on_init():
+    print("--- Тест системних функцій ---")
+    
+    # 1. Тест гучності
+    let vol = sound.get_volume()
+    print("Поточна гучність: " + str(vol))
+    
+    print("Встановлюю гучність на 20%...")
+    sound.set_volume(22)
+    sleep(1)
+    
+    # 2. Тест яскравості
+    let bright = screen.get_brightness()
+    print("Поточна яскравість: " + str(bright))
+    
+    print("Встановлюю яскравість на 50%...")
+    screen.set_brightness(100)
+    sleep(1)
+
+    # 3. Тест розкладки
+    let lang = system.get_keyboard_layout()
+    print("Поточна розкладка: " + str(lang))
+    
+    # 4. Тест монітора (вимкнути на 2 секунди і ввімкнути)
+    # ОБЕРЕЖНО: це реально вимкне монітор
+    # print("Вимикаю монітор на 2 секунди...")
+    # screen.monitor_off()
+    # sleep(2)
+    # screen.monitor_on()
+    # print("Монітор увімкнено")
+
+    print("Тест завершено")
+
+func on_tick(delta):
+    pass

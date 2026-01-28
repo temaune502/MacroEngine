@@ -1,0 +1,12 @@
+func on_init():
+    let total_time = storage.read("total_work_time", 0)
+    let sessions = storage.read("sessions", 0)
+    
+    set sessions = sessions + 1
+    storage.write("sessions", sessions)
+    
+    system.alert("Запуск №" + str(sessions) + ". Час: " + str(total_time) + " сек.")
+
+func on_tick(delta):
+    let total_time = storage.read("total_work_time", 0)
+    storage.write("total_work_time", total_time + delta)

@@ -1,0 +1,41 @@
+let is_running = true
+
+let pressed = false
+
+let keyboardl = keyboard
+
+let w = K_W
+
+let total_time = storage.read("total_work_time", 0)
+let sessions = storage.read("sessions", 0)
+
+func on_init():
+    storage.set_config(10, true)
+    
+    set sessions = sessions + 1
+    storage.write("sessions", sessions)
+    print("Макрос запущено!")
+
+func on_tick(delta):
+    
+    let total_time = storage.read("total_work_time", 0)
+    storage.write("total_work_time", total_time + delta)
+    
+    
+    if is_running:
+        keyboard.press(w)
+        set pressed = true  
+    else:
+        if pressed:
+            set pressed = false
+            keyboard.release(w)
+
+func on_hotkey(hotkey_name):
+    if hotkey_name == K_F7:
+        set is_running = not is_running
+        print("Статус макросу: " + str(is_running))
+
+
+func on_exit():
+    keyboardl.release(w)
+    storage.save()

@@ -1,0 +1,26 @@
+# Анти-AFK макрос
+# Кожні 30 секунд трохи рухає мишку, щоб персонаж не стояв на місці
+
+let timer = 0
+let interval = 30 # Час у секундах
+
+func on_init():
+    print("Анти-AFK активовано (кожні " + str(interval) + " сек)")
+
+
+func on_tick(delta):
+    set timer = timer + delta
+
+    if timer >= interval:
+        print("Рух мишки для запобігання AFK...")
+        
+        let start_x = mouse.x
+        let start_y = mouse.y
+        
+        # Рухаємо вправо-вниз
+        mouse.move(start_x + 50, start_y + 50)
+        sleep(0.2)
+        # Повертаємо назад
+        mouse.move(start_x, start_y)
+        
+        set timer = 0

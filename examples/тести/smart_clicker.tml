@@ -1,0 +1,9 @@
+func on_tick(delta):
+    let color = screen.get_color(500, 500)
+    
+    # color повертає Vector(R, G, B)
+    if color.x > 200:
+        mouse.move(500, 500)
+        mouse.click(left)
+        sound.beep(1000, 50)
+        sleep(1.0)

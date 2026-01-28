@@ -1,0 +1,14 @@
+func on_tick(delta):
+    let timer = storage.read("timer", 0)
+    set timer = timer + delta
+    
+    if timer > 30:
+        mouse.move_rel(10, 0)
+        sleep(0.1)
+        mouse.move_rel(-10, 0)
+        key.tap(K_SPACE)
+        
+        storage.write("timer", 0)
+        sound.beep(400, 100)
+    else:
+        storage.write("timer", timer)

@@ -1,0 +1,7 @@
+func on_tick(delta):
+    let item_pos = screen.find_image("rare_item.png", 0.8)
+    
+    if item_pos:
+        sound.play("alert.wav")
+        net.discord_webhook("https://discord.com/api/webhooks/...", "Знайдено предмет на: " + str(item_pos))
+        macro.exit()
